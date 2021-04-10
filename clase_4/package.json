@@ -1,0 +1,21 @@
+{
+  "name": "clase_4",
+  "version": "1.0.0",
+  "description": "",
+  "main": "express_01.js",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon express_01.js",
+    "dos": "nodemon express_02.js",
+    "tres": "nodemon express_03.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
