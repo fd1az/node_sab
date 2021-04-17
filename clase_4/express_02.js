@@ -1,5 +1,6 @@
 import express from 'express';
-
+import dotenv from 'dotenv';
+dotenv.config();
 const app = express();
 
 let contacts = {
@@ -50,6 +51,8 @@ app.get('/data', (req, res) => {
   res.json(contacts);
 });
 
-app.listen(5000, () => {
-  console.log('Server runnig in port 5000');
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+  console.log(`Server runnig in port ${PORT}`);
 });
