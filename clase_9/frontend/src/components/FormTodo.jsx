@@ -5,6 +5,7 @@ import {
   Box,
   Input,
   Flex,
+  useToast,
 } from '@chakra-ui/react';
 
 import React, { useState } from 'react';
@@ -13,19 +14,29 @@ import { useMutation, useQueryClient } from 'react-query';
 const FormTodo = () => {
   const queryClient = useQueryClient();
   const [todo, setTodo] = useState('');
+  const toast = useToast();
 
   const mutation = useMutation(
-    (newTodo) =>
-      fetch('http://localhost:5000/api/v1/todo', {
+    async (newTodo) => {
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+      return fetch('http://localhost:5000/api/v1/todo', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(newTodo),
-      }),
+      });
+    },
     {
       onSuccess: () => {
+        toast({
+          title: `To-Do creado!`,
+          status: 'success',
+          isClosable: true,
+          position: 'top-right',
+        });
         queryClient.invalidateQueries('todo');
+        setTodo('');
       },
     }
   );
@@ -63,7 +74,11 @@ const FormTodo = () => {
             fontWeight="600"
             onClick={() => mutation.mutate({ description: todo })}
           >
-            Crear Todo!
+            {mutation.isLoading
+              ? 'wait...'
+              : mutation.isError
+              ? 'Ups! pincho'
+              : 'Crear todo!'}
           </Button>
         </FormControl>
       </Flex>
