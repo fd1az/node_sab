@@ -119,3 +119,6 @@ function printArray<T>(array: T[]): void {
 
 let arrayNum = [1, 2, 3];
 let arrayString = ['1', '2', '3'];
+
+printArray<number>(arrayNum);
+printArray<string>(arrayString);
